@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { MdAdd } from 'react-icons/md';
 import { useTodoDispatch, useTodoNextId } from './TodoContext';
+import AddDialog from './AddDialog';
 
 const CircleButton = styled.button`
   background: #38d9a9;
@@ -20,7 +21,7 @@ const CircleButton = styled.button`
   align-items: center;
   justify-content: center;
   position: absolute;
-  left: 50%;
+  left: 90%;
   bottom: 0px;
   transform: translate(-50%, 50%);
   font-size: 60px;
@@ -56,15 +57,6 @@ const InsertForm = styled.form`
   border-bottom-right-radius: 16px;
   border-top: 1px solid #e9ecef;
 `;
-const Input = styled.input`
-  padding: 12px;
-  border-radius: 4px;
-  border: 1px solid #dee2e6;
-  width: 100%;
-  outline: none;
-  font-size: 18px;
-  box-sizing: border-box;
-`;
 function TodoCreate() {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
@@ -72,7 +64,8 @@ function TodoCreate() {
   const onChange = e => setValue(e.target.value);
   const dispatch = useTodoDispatch();
   const nextId = useTodoNextId();
-  const onSubmit = e => {
+  const [dialog, setDialog] = useState(false);
+  const onClick = e => {
     e.preventDefault();
     dispatch({
       type: 'CREATE',
@@ -84,23 +77,31 @@ function TodoCreate() {
     });
   };
 
+  setDialog(true);
+
+  const onConfirm = () => {
+    console.log('확인');
+    setDialog(false);
+  };
+  const onCancel = () => {
+    console.log('취소');
+    setDialog(false);
+  };
   return (
     <>
-      {open && (
-        <InsertFormPositioner>
-          <InsertForm onSubmit={onSubmit}>
-            <Input
-              placeholder="할일 입력"
-              autoFocus
-              onChange={onChange}
-              value={value}
-            />
-          </InsertForm>
-        </InsertFormPositioner>
-      )}
-      <CircleButton onClick={onToggle} open={open}>
+      <CircleButton onClick={onClick} open={open}>
         <MdAdd />
       </CircleButton>
+      <AddDialog
+        title="정말로 삭제하시겠습니까?"
+        confirmText="등록"
+        cancelText="취소"
+        onConfirm={onConfirm}
+        onCancel={onCancel}
+        visible={dialog}
+      >
+        데이터를 정말로 삭제하시겠습니까?
+      </AddDialog>
     </>
   );
 }

@@ -1,17 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useTodoState } from './TodoContext';
 
 const TodoHeadBlock = styled.div`
   padding-top: 48px;
   padding-left: 32px;
   padding-right: 32px;
   padding-bottom: 24px;
-  border-bottom: 1px solid #e9ecef;
 
   h1 {
     margin: 0;
     font-size: 36px;
+    color: #343a40;
+  }
+  h2 {
+    margin: 0;
+    margin-top: 20px;
+    font-size: 20px;
     color: #343a40;
   }
   .day {
@@ -25,24 +29,30 @@ const TodoHeadBlock = styled.div`
     margin-top: 40px;
     font-weight: bold;
   }
+  .catediv {
+    text-align: right;
+    font-weight: bold;
+    margin: 15px;
+    padding: 15px;
+    font-size: 20px;
+    border-bottom: 1px solid #e9ecef;
+    border-top: 1px solid #e9ecef;
+  }
 `;
 function TodoHead() {
-  const todos = useTodoState();
-  const undoneTasks = todos.filter(todo => !todo.done);
   const today = new Date();
   const dateString = today.toLocaleDateString('ko-KR', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
   });
-  const dayName = today.toLocaleDateString('ko-KR', {
-    weekday: 'long',
-  });
+
   return (
     <TodoHeadBlock>
-      <h1>{dateString}</h1>
-      <div className="day">{dayName}</div>
-      <div className="task-left">할일 {undoneTasks.length}</div>
+      <h1>오늘의 지출</h1>
+      <h2>{dateString}</h2>
+      <h2>총 지출: 어떤값</h2>
+      <div className="catediv">카테고리별로 보기:</div>
     </TodoHeadBlock>
   );
 }

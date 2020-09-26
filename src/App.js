@@ -1,5 +1,6 @@
 import React from 'react';
 import { createGlobalStyle } from 'styled-components';
+import AddDialog from './components/AddDialog';
 import { TodoProvider } from './components/TodoContext';
 import TodoCreate from './components/TodoCreate';
 import TodoHead from './components/TodoHead';

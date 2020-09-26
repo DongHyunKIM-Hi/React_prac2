@@ -34,14 +34,15 @@ const CheckCircle = styled.div`
     `}
 `;
 const Text = styled.div`
+  font-size: 15px;
   flex: 1;
-  font-size: 21px;
   color: #495057;
-  ${props =>
-    props.done &&
-    css`
-      color: #ced4da;
-    `}
+`;
+
+const Price = styled.div`
+  font-size: 15px;
+  text-align: right;
+  color: red;
 `;
 const TodoItemBlock = styled.div`
   display: flex;
@@ -72,6 +73,7 @@ function TodoItem({ id, done, text }) {
         {done && <MdDone />}
       </CheckCircle>
       <Text done={done}>{text}</Text>
+      <Price>asd</Price>
       <Remove onClick={onRemove}>
         <MdDelete />
       </Remove>
