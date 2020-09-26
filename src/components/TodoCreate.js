@@ -58,50 +58,45 @@ const InsertForm = styled.form`
   border-top: 1px solid #e9ecef;
 `;
 function TodoCreate() {
-  const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
-  const onToggle = () => setOpen(!open);
   const onChange = e => setValue(e.target.value);
   const dispatch = useTodoDispatch();
   const nextId = useTodoNextId();
-  const [dialog, setDialog] = useState(false);
-  const onClick = e => {
+  const onSubmit = e => {
     e.preventDefault();
     dispatch({
       type: 'CREATE',
       todo: {
         id: nextId.current,
         text: value,
-        done: false,
+        // amount: amount,
+        // category: category,
       },
     });
-  };
-
-  setDialog(true);
-
-  const onConfirm = () => {
-    console.log('확인');
     setDialog(false);
   };
+  const [dialog, setDialog] = useState(false);
+  const onClick = () => {
+    setDialog(true);
+  };
   const onCancel = () => {
-    console.log('취소');
     setDialog(false);
   };
   return (
     <>
-      <CircleButton onClick={onClick} open={open}>
+      <CircleButton onClick={onClick}>
         <MdAdd />
       </CircleButton>
       <AddDialog
         title="정말로 삭제하시겠습니까?"
         confirmText="등록"
         cancelText="취소"
-        onConfirm={onConfirm}
+        onConfirm={onSubmit}
         onCancel={onCancel}
         visible={dialog}
-      >
-        데이터를 정말로 삭제하시겠습니까?
-      </AddDialog>
+        value={value}
+        onChange={onChange}
+      ></AddDialog>
     </>
   );
 }

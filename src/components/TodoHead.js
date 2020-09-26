@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useTodoState } from './TodoContext';
 
 const TodoHeadBlock = styled.div`
   padding-top: 48px;
   padding-left: 32px;
   padding-right: 32px;
-  padding-bottom: 24px;
 
+  span {
+    font-size: 20px;
+    color: red;
+  }
   h1 {
     margin: 0;
     font-size: 36px;
@@ -46,12 +50,18 @@ function TodoHead() {
     month: 'long',
     day: 'numeric',
   });
+  const items = useTodoState();
+  const sum = items.reduce(function(old, current) {
+    return old + current.amount;
+  }, 0);
 
   return (
     <TodoHeadBlock>
       <h1>오늘의 지출</h1>
       <h2>{dateString}</h2>
-      <h2>총 지출: 어떤값</h2>
+      <h2>
+        총 지출: <span>-{sum}원</span>
+      </h2>
       <div className="catediv">카테고리별로 보기:</div>
     </TodoHeadBlock>
   );

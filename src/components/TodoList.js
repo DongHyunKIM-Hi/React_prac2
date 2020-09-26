@@ -18,7 +18,8 @@ function TodoList() {
           key={todo.id}
           id={todo.id}
           text={todo.text}
-          done={todo.done}
+          category={todo.category}
+          amount={todo.amount}
         />
       ))}
     </TodoListBlock>

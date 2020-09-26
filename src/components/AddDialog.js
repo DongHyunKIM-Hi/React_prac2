@@ -115,14 +115,12 @@ function AddDialog({
   cancelText,
   onConfirm,
   onCancel,
-  onChange1,
-  onChange2,
   visible,
+  value,
+  onChange,
 }) {
   const [animate, setAnimate] = useState(false);
   const [localVisible, setLocalVisible] = useState(visible);
-  const [value1, setValue1] = useState('');
-  const [value2, setValue2] = useState('');
   useEffect(() => {
     // visible 값이 true -> false 가 되는 것을 감지
     if (localVisible && !visible) {
@@ -138,9 +136,9 @@ function AddDialog({
       <DialogBlock disappear={!visible}>
         <h3>지출 등록</h3>
         <p>내용</p>
-        <Input value1={value1} onChange={onChange1}></Input>
+        <Input value={value} onChange={onchange}></Input>
         <p>금액</p>
-        <Input value2={value2} onChange={onChange2}></Input>
+        <Input></Input>
         <p>카테고리</p>
         <Input></Input>
         <ButtonGroup>

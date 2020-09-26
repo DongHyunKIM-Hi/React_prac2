@@ -3,23 +3,27 @@ import React, { createContext, useReducer, useContext, useRef } from 'react';
 const initialTodos = [
   {
     id: 1,
-    text: '프로젝트 생성하기',
-    done: true,
+    text: '용개반점',
+    amount: 7000,
+    category: '식사',
   },
   {
     id: 2,
-    text: '컴포넌트 스타일링하기',
-    done: true,
+    text: '양배추',
+    amount: 5000,
+    category: '식료품',
   },
   {
     id: 3,
-    text: 'Context 만들기',
-    done: false,
+    text: '택시비',
+    amount: 20000,
+    category: '교통',
   },
   {
     id: 4,
-    text: '기능 구현하기 ',
-    done: false,
+    text: '관리비',
+    amount: 100000,
+    category: '생활',
   },
 ];
 /*
@@ -31,10 +35,6 @@ function todoReducer(state, action) {
   switch (action.type) {
     case 'CREATE':
       return state.concat(action.todo);
-    case 'TOGGLE':
-      return state.map(todo =>
-        todo.id === action.id ? { ...todo, done: !todo.done } : todo
-      );
     case 'REMOVE':
       return state.filter(todo => todo.id !== action.id);
     default:
