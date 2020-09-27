@@ -43,20 +43,7 @@ const CircleButton = styled.button`
       transform: translate(-50%, 50%) rotate(45deg);
     `};
 `;
-const InsertFormPositioner = styled.div`
-  width: 100%;
-  bottom: 0;
-  left: 0;
-  position: absolute;
-`;
-const InsertForm = styled.form`
-  background: #f8f9fa;
-  padding: 32px;
-  padding-bottom: 72px;
-  border-bottom-left-radius: 16px;
-  border-bottom-right-radius: 16px;
-  border-top: 1px solid #e9ecef;
-`;
+
 function TodoCreate() {
   const [value, setValue] = useState('');
   const onChange = e => setValue(e.target.value);

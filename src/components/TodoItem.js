@@ -1,6 +1,6 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
-import { MdDone, MdDelete } from 'react-icons/md';
+import styled from 'styled-components';
+import { MdDelete } from 'react-icons/md';
 import { useTodoDispatch } from './TodoContext';
 
 const Remove = styled.div`
@@ -18,6 +18,7 @@ const Category = styled.div`
   font-size: 15px;
   font-weight: bold;
   margin-right: 10px;
+  color: #343a40;
 `;
 const Text = styled.div`
   font-size: 15px;
@@ -39,11 +40,7 @@ const TodoItemBlock = styled.div`
 `;
 function TodoItem({ id, category, text, amount }) {
   const dispatch = useTodoDispatch();
-  const onToggle = () =>
-    dispatch({
-      type: 'TOGGLE',
-      id,
-    });
+
   const onRemove = () =>
     dispatch({
       type: 'REMOVE',
