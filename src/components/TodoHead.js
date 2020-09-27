@@ -6,7 +6,12 @@ const TodoHeadBlock = styled.div`
   padding-top: 48px;
   padding-left: 32px;
   padding-right: 32px;
-
+  select {
+    border-radius: 4px;
+    margin: 4px;
+    background: gray;
+    color: white;
+  }
   span {
     font-size: 20px;
     color: red;
@@ -53,6 +58,7 @@ function TodoHead() {
   });
   const items = useTodoState();
   const sum = items.reduce(function(old, current) {
+    console.log(current);
     return old + current.amount;
   }, 0);
 
@@ -63,7 +69,17 @@ function TodoHead() {
       <h2>
         총 지출: <span>-{sum}원</span>
       </h2>
-      <div className="catediv">카테고리별로 보기:</div>
+      <div className="catediv">
+        카테고리별로 보기:
+        <select>
+          <option selected label="전체"></option>
+          <option label="식사"></option>
+          <option label="식료품"></option>
+          <option label="교통"></option>
+          <option label="생활"></option>
+          <option label="의료"></option>
+        </select>
+      </div>
     </TodoHeadBlock>
   );
 }

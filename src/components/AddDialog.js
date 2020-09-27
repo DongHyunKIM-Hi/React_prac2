@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes, css } from 'styled-components';
-
+import { useTodoDispatch, useTodoNextId } from './TodoContext';
 const fadeIn = keyframes`
   from {
     opacity: 0
@@ -75,7 +75,9 @@ const DialogBlock = styled.div`
   p {
     font-size: 1.125rem;
   }
-
+  select {
+    width: 100%;
+  }
   animation-duration: 0.25s;
   animation-timing-function: ease-out;
   animation-name: ${slideUp};
@@ -108,17 +110,30 @@ const Input = styled.input`
   font-size: 18px;
   box-sizing: border-box;
 `;
-function AddDialog({
-  title,
-  children,
-  confirmText,
-  cancelText,
-  onConfirm,
-  onCancel,
-  visible,
-  value,
-  onChange,
-}) {
+function AddDialog({ confirmText, cancelText, onConfirm, onCancel, visible }) {
+  const [value1, setValue1] = useState('');
+  const [value2, setValue2] = useState('');
+  const [value3, setValue3] = useState('');
+  const onChange1 = e => setValue1(e.target.value);
+  const onChange2 = e => setValue2(e.target.value);
+  const onChange3 = e => setValue3(e.target.value);
+  const dispatch = useTodoDispatch();
+  const nextId = useTodoNextId();
+  const onSubmit = e => {
+    e.preventDefault();
+    dispatch({
+      type: 'CREATE',
+      todo: {
+        id: nextId.current,
+        text: value1,
+        amount: value2,
+        category: value3,
+        // amount: amount,
+        // category: category,
+      },
+    });
+    nextId.current += 1;
+  };
   const [animate, setAnimate] = useState(false);
   const [localVisible, setLocalVisible] = useState(visible);
   useEffect(() => {
@@ -136,14 +151,21 @@ function AddDialog({
       <DialogBlock disappear={!visible}>
         <h3>지출 등록</h3>
         <p>내용</p>
-        <Input value={value} onChange={onchange}></Input>
+        <Input onChange={onChange1} value={value1}></Input>
         <p>금액</p>
-        <Input></Input>
+        <Input onChange={onChange2} value={value2}></Input>
         <p>카테고리</p>
-        <Input></Input>
+        <select onChange={onChange3} value={value3}>
+          <option value="전체">전체</option>
+          <option value="식사">식사</option>
+          <option value="식료품">식료품</option>
+          <option value="교통">교통</option>
+          <option value="생활">생활</option>
+          <option value="의료">의료</option>
+        </select>
         <ButtonGroup>
           <ShortMarginButton onClick={onCancel}>{cancelText}</ShortMarginButton>
-          <ShortMarginButton onClick={onConfirm}>
+          <ShortMarginButton onClick={onSubmit}>
             {confirmText}
           </ShortMarginButton>
         </ButtonGroup>

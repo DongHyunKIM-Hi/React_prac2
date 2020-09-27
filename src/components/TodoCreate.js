@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { MdAdd } from 'react-icons/md';
-import { useTodoDispatch, useTodoNextId } from './TodoContext';
 import AddDialog from './AddDialog';
 
 const CircleButton = styled.button`
@@ -45,23 +44,6 @@ const CircleButton = styled.button`
 `;
 
 function TodoCreate() {
-  const [value, setValue] = useState('');
-  const onChange = e => setValue(e.target.value);
-  const dispatch = useTodoDispatch();
-  const nextId = useTodoNextId();
-  const onSubmit = e => {
-    e.preventDefault();
-    dispatch({
-      type: 'CREATE',
-      todo: {
-        id: nextId.current,
-        text: value,
-        // amount: amount,
-        // category: category,
-      },
-    });
-    setDialog(false);
-  };
   const [dialog, setDialog] = useState(false);
   const onClick = () => {
     setDialog(true);
@@ -78,11 +60,10 @@ function TodoCreate() {
         title="정말로 삭제하시겠습니까?"
         confirmText="등록"
         cancelText="취소"
-        onConfirm={onSubmit}
+        onConfirm={onClick}
         onCancel={onCancel}
         visible={dialog}
-        value={value}
-        onChange={onChange}
+        //여기까지는 오케이 AddDialog에서 값을 받아오는일 구현
       ></AddDialog>
     </>
   );
