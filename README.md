@@ -1,1 +1,2 @@
-# bytedegree-work-2
+React를 사용하여 가계부를 만들었습니다.
+
