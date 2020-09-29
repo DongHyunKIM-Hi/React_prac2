@@ -18,7 +18,7 @@ const backcolor = css`
         background-color: red;
       `}
     
-    
+
     ${props =>
       props.tag === '식료품' &&
       css`
