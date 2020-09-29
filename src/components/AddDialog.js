@@ -9,7 +9,7 @@ const fadeIn = keyframes`
     opacity: 1
   }
 `;
-
+//다시 전송
 const fadeOut = keyframes`
   from {
     opacity: 1
